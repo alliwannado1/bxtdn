@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:zk="zk" xmlns:z="zul" xmlns:w="client" xmlns:n="native">
+		<zscript><![CDATA[               
+			entry = new vn.toancauxanh.service.BaseObject().core();
+			String resource = execution.getParameter("resource");
+			String file = execution.getParameter("file");
+			String action = execution.getParameter("action");
+			String ctxPath = execution.getContextPath();
+			boolean coquyen = true;
+			boolean dakhoa = entry.nhanVienDaKhoa;
+		]]></zscript>
+		<!-- BEGIN HEADER -->
+		<z:include src="/WEB-INF/zul/common/header.zhtml"></z:include>
+		<!-- END HEADER -->
+				
+				<div class="box-container">
+					<div class="menu-box">
+					
+						<!-- BEGIN MENU -->
+						<z:include src="/WEB-INF/zul/common/menu.zhtml"></z:include>
+						<!-- END MENU -->
+						
+					</div>
+					
+					<!-- BEGIN CONTENT -->
+					<z:include src="${file}"></z:include>
+					<!-- END CONTENT -->
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>

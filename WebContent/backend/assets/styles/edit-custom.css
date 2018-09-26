@@ -1,0 +1,137 @@
+@import
+	url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&subset=vietnamese)
+	;
+
+@font-face {
+	font-family: Roboto-Regular;
+	src: url(../fonts/Roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+	font-family: Roboto-Bold;
+	src: url(../fonts/Roboto/Roboto-Bold.ttf);
+}
+
+a, abbr, acronym, address, applet, article, aside, audio, b, big,
+	blockquote, body, canvas, caption, center, cite, code, dd, del, details,
+	dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form,
+	h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd,
+	label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby,
+	s, samp, section, small, span, strike, strong, sub, summary, sup, table,
+	tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: inherit;
+	outline: 0 !important;
+	-webkit-font-smoothing: antialiased;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block
+}
+
+body {
+	height: 100%
+}
+
+html {
+	height: 100%
+}
+
+header {
+	background-color: green;
+	height: 40px;
+	display: flex;
+	width: 100vw;
+}
+
+.box-container {
+	width: 100vw;
+	display: flex;
+}
+
+.box-content {
+	background-color: #f5f5f0;
+	padding-top: 15px;
+}
+
+.menu-box {
+	height: calc(100vh - 40px);
+	width: 320px;
+	padding-top: 15px;
+	border-right: 1px solid #f5f5f0;
+}
+
+.menu-box ul a {
+	display: flex;
+	padding: 10px 30px;
+	align-items: center;
+}
+
+.menu-box ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0;
+}
+
+.menu-box ul li {
+	padding: 0;
+	margin: 0;
+}
+
+.menu-box ul li i {
+	padding-right: 15px;
+	font-size: 24px;
+}
+
+.active {
+	background-color: #f5f5f0;
+}
+
+.menu-box ul li a:hover {
+	background-color: #f5f5f0;
+}
+
+.box-form {
+	background-color: white;
+	margin-bottom: 15px;
+}
+
+.title-form {
+	padding: 15px;
+	border-bottom: 1px solid #e0e0d1;
+}
+
+.title-form h5 {
+	margin: 0;
+}
+
+.box-form-content {
+	padding: 15px;
+}
+
+.button-fl {
+	display: flex;
+	padding-top: 15px;
+	justify-content: space-between;
+}
+
+.box-content h4 {
+	margin-bottom: 15px;
+}
+
+.title-form-no {
+	padding: 15px;
+}
+
+label {
+	margin-top: 0.5rem;
+}
+
+.paging-show-box {
+	display: flex;
+	justify-content: space-between;
+}

@@ -1,0 +1,60 @@
+<idspace xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk">
+	<zscript><![CDATA[
+		self.page.title= "Quản lý hệ thống";
+		vaitro = entry.getNhanVien().firstAlias;
+	]]></zscript>
+	<window title="Trợ giúp" id="wdn" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		class="pop-up-width"
+		viewModel="@id('vm') @init('vn.toancauxanh.cms.service.SettingService')"
+		mode="modal" contentStyle="overflow:auto;" closable="true">
+		<div class="row">
+				<div class="col-lg-12">
+					<div class="box-content-full">
+						<n:section class="box-result box-cv-processed">
+							<div class="box-form-search">
+								<div class="row row-vc-process row-setting">
+									<div class="col-sm-6">
+										<n:span class="title-issue title-issue-detail">Đơn vị hỗ trợ<n:span class="required">*</n:span></n:span>
+									</div>
+									<div  class="col-sm-6">
+										<label value="@load(vm.setting.donViHoTro)"/>
+									</div>
+								</div>
+								<div class="row row-vc-process row-setting">
+									<div class="col-sm-6">
+										<n:span class="title-issue title-issue-detail">Số điện thoại hỗ trợ<n:span class="required">*</n:span></n:span>
+									</div>
+									<div class="col-sm-6">
+										<label value="@load(vm.setting.soDienThoaiHoTro)"/>
+									</div>
+								</div>	
+								<div class="row-vc-process row-setting">
+									<div class="row">	
+										<div class="col-sm-6">
+											<n:span class="title-ip">Tài liệu HDSD</n:span>
+										</div>
+										<div class="col-sm-6" style="padding-left: 10px;">
+											<div visible="@load(!empty vm.setting.tenFileHDSD)">
+												<a zk:onClick="@command(vm.setting.downloadFile())">
+													<image if="${not empty vm.setting.tenFileHDSD}" content="@load(vm.setting.imgQuanTriVien.imageContent)" style="width: 20px; padding-left: 0px;"/>
+													<label value="@load(vm.setting.tenFileHDSD)"/>
+												</a>							
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</n:section>
+					</div>
+				</div>
+			</div>
+		<div class="row box-footer">
+			<x:button class="btn btn-default" 
+				zk:onClick='wdn.detach()'>
+				<n:i ></n:i>Đóng
+			</x:button>		
+		</div>
+	</window>
+</idspace>

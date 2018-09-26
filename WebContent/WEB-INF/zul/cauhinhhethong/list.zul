@@ -1,0 +1,117 @@
+<z:idspace xmlns:n="native" xmlns:zk="zk" xmlns:z="zul" xmlns:x="xhtml"
+	xmlns:w="client"
+	validationMessages="@id('vmsgs')"
+	viewModel="@id('vm') @init('vn.toancauxanh.cms.service.SettingService')"
+	form="@id('fx') @load(vm) @save(vm, before={'saveSetting'}) @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')">
+	<zscript><![CDATA[
+		self.page.title= "Cấu hình hệ thống";
+		vaitro = entry.getNhanVien().firstAlias;
+	]]></zscript>
+	<n:section class="main-container">
+		<div class="center">
+			<div class="bar-top-content">
+				<n:h2 class="title-page-main">Cấu hình hệ thống</n:h2>
+			</div>
+			<div class="row">
+				<div class="col-am-12">
+					<div class="box-content-full">
+						<n:section class="box-result box-cv-processed">
+							<div class="box-form-search" style="border-bottom: 1px solid #d0deee;">
+								<div class="row row-vc-process row-setting">
+									<div class="col-sm-3">
+										<n:span class="title-issue title-issue-detail">Đơn vị hỗ trợ<n:span class="required">*</n:span></n:span>
+									</div>
+									<div  class="col-sm-4">
+										<textbox class="hv-textbox" width="100%" value="@bind(vm.setting.donViHoTro) @save(vm.setting.donViHoTro,before='saveSetting') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"/>
+										<label class="error" value="@load(vmsgs[self.previousSibling])" />
+									</div>
+								</div>
+								<div class="row row-vc-process row-setting">
+									<div class="col-sm-3">
+										<n:span class="title-issue title-issue-detail">Số điện thoại hỗ trợ<n:span class="required">*</n:span></n:span>
+									</div>
+									<div class="col-sm-4">
+										<textbox class="hv-textbox" width="100%" value="@bind(vm.setting.soDienThoaiHoTro) @save(vm.setting.soDienThoaiHoTro,before='saveSetting') @validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"/>
+										<label class="error" value="@load(vmsgs[self.previousSibling])" />
+									</div>
+								</div>
+								<div class="row-vc-process row-setting">
+									<div class="row">	
+										<div class="col-sm-3">
+											<n:span class="title-ip">Tài liệu HDSD</n:span>
+										</div>
+										<div class="col-sm-4">
+											<div class="row">	
+												<div class="col-sm-12">
+													<div visible="@load(!empty vm.setting.tenFileHDSD)">
+														<a zk:onClick="@command(vm.setting.downloadFile())">
+															<image if="${not empty vm.setting.tenFileHDSD}" content="@load(vm.setting.imgQuanTriVien.imageContent)" style="width: 20px;"/>
+															<label value="@load(vm.setting.tenFileHDSD)"/>
+														</a>
+														<a style="padding-left: 15px;color: red;" zk:onClick="@command(vm.setting.xoaFile(''))">
+															Xóa
+														</a>								
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12">
+													<button id="fileUpload" 
+														style="margin-left: 0px;"
+														iconSclass="icon-themmoifile" zclass="btn-add-newfile btn-page" label="Đính kèm file"
+														apply="org.zkoss.bind.BindComposer"
+														viewModel="@id('vmobject') @init(vm.setting)"
+														onUpload="@command('uploadFile',media=event.media)"
+														upload="true,maxsize=51200,accept=.pdf|.doc|.docx" />
+													<label class="tx-note" value="Tải lên tối đa 50MB"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="box-form-search" style="border-bottom: 1px solid #d0deee;">
+								<div class="box-item-xl"> 
+					                <n:p class="title-issue title-list-report">THÔNG TIN HỖ TRỢ</n:p>
+					                <div zclass="row row-vc-process row-setting list-menu-sukien">
+										<div zclass="col-sm-6">
+											<n:span class="title-issue title-issue-detail">Đơn vị hỗ trợ kỹ thuật</n:span>
+											<textbox class="hv-textbox" width="100%" maxlength="255"
+												value="@bind(vm.setting.tenDonViHoTroKyThuat)" />
+					                	</div>
+					                	<div zclass="col-sm-3">
+											<n:span class="title-issue title-issue-detail">Số điện thoại</n:span>
+											<textbox class="hv-textbox" width="100%" maxlength="255"
+												value="@bind(vm.setting.sdtDonViHoTroKyThuat)" />
+					                	</div>
+					                	<div zclass="col-sm-3">
+											<n:span class="title-issue title-issue-detail">Email</n:span>
+											<textbox class="hv-textbox" width="100%" maxlength="255"
+												value="@bind(vm.setting.emailHoTroKyThuat)" />
+					                	</div>
+					                </div>
+				                </div>
+							</div>
+								
+							<div class="row-vc-process list-menu-sukien">
+								<div class="box-thaotac box-thaotac-new">
+									<div class="box-thaotac-right button-thaotac button-taphuan">
+										<x:button class="btn btn-success margin-button width-button" zk:if="${entry.quyen.cauhinhhethong_sua}" 
+											zk:onClick="@command('saveSetting')">
+											<n:i class="icon-save"></n:i>
+											Lưu
+										</x:button>
+										<x:a class="btn btn-info width-button bgcolor-button" href="${execution.contextPath}/cauhinhhethong" zk:if="${trangThaiCongViec ne 'nhap'}">
+											<n:i class="icon-cancel3"></n:i>Đóng
+										</x:a>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</n:section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</n:section>
+</z:idspace>

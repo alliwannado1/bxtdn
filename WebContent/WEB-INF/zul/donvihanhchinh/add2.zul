@@ -1,0 +1,2 @@
+<?component name="add-child" inline="true" macroURI="add-child.zul"?>
+<add-child model="${entry.donViHanhChinhs.type().newInstance()}"  vmArgs="${arg.vmArgs}" dvc="${arg.dvc}" save="Tạo mới đơn vị hành chính" />

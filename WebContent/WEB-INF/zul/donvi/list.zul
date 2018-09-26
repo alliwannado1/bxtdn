@@ -1,0 +1,79 @@
+<z:idspace xmlns:n="native" xmlns:zk="zk" xmlns:z="zul" xmlns:x="xhtml"
+	viewModel="@id('vm') @init('vn.toancauxanh.cms.service.DonViService')">
+	<zscript><![CDATA[
+		self.page.title= "Quản lý đơn vị";
+		donViHanhChinhs = entry.donViHanhChinhs;
+	]]></zscript>
+	<n:section class="main-container">
+		<div class="center">
+			<div class="bar-top-content">
+				<n:h2 class="title-page-main">Quản lý đơn vị</n:h2>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="box-content-full">
+						<n:section class="box-result">
+							<div class="box-form-search">
+								<n:form class="form-src">
+									<div class="row-box-src">
+										<textbox class="keysearch" value="@bind(vm.arg.tukhoa)" placeholder="Nhập tên đơn vị"
+													onOK="@command('cmd', notify=vm, attr='targetQuery')" />
+										<x:button class="btn-form-search btn-page" type="button" onClick="@command('cmd', notify=vm, attr='*')" >
+											<n:i class="icon-search"></n:i> Tìm kiếm
+										</x:button>
+									</div>
+								</n:form>
+							</div>
+							<div class="clearfix"></div>
+						</n:section>
+						<n:section class="box-result">
+				        	<div class="box-list-report">
+				          		<div class="box-report-top">
+				          			<n:p class="title-issue title-list-report">
+				          				Danh sách đơn vị
+				          			</n:p>
+				          			<x:button class="btn-add-new btn-page" zk:if="${entry.quyen.donvi_them}" 
+			    						onClick="@command('redirectPage', zul='donvi/add.zul', vmArgs=vm, vm=null)">
+		    							<n:i class="icon-themmoi"></n:i>&#160;&#160;Thêm mới
+		    						</x:button>
+				          		</div>
+				          		 <div class="wrappre-tb">
+		                			<div class="wp-scrool">
+		                				<grid model="@load(vm.page(vm.targetQuery).fetch())" width="100%" id="grid"
+											emptyMessage="Danh sách không có đơn vị nào" class="table-report">
+											<columns>
+												<column label="STT" hflex="min" sclass="text-align-center"/>
+												<column label="Tên đơn vị" width="90%" />					
+												<column label="Trạng thái" width="100px" sclass="text-align-center"/>
+												<column label="Thao tác" width="110px" sclass="text-align-center"/>
+											</columns>
+											<template name="model">
+												<row apply="org.zkoss.bind.BindComposer" viewModel="@id('item') @init(each)">
+													<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="text-align:center;display:block"/>
+													<a label="@load(each.ten)" onClick="@command('redirectPage', zul='donvi/view.zul',vmArgs=vm,vm=item)" tooltiptext="@load(each.id)"/>
+													<cell sclass="text-align-center">
+														<n:span class="${each.setStyleTrangThai(each.trangThai)}">${each.trangThaiText eq null ? '   ' : each.trangThaiText}</n:span>
+													</cell>
+													<div class="text-align-center grid-action">
+														<x:a href="#" class="col-edit" zk:if="${entry.quyen.donvi_sua}"
+															onClick="@command('redirectPage', zul='donvi/view.zul',vmArgs=vm,vm=item)"><n:i class="icon-edit"></n:i>Chỉnh sửa</x:a>
+		                          						<x:a href="#" class="col-del" zk:if="${entry.quyen.donvi_xoa and !each.macDinh}"
+		                          							onClick="@command('deleteTrangThaiConfirmAndNotify', notify=vm, attr='targetQuery')"><n:i class="icon-cancel"></n:i>Xóa</x:a>
+													</div>
+												</row>
+											</template>
+										</grid>
+										<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())"
+											visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+											activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+										
+		                			</div>
+		                		</div>
+				         	 </div>
+				         </n:section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</n:section>
+</z:idspace>

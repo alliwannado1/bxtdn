@@ -1,0 +1,53 @@
+<idspace>
+<window xmlns:n="native" xmlns:x="xhtml" xmlns:zk="zk" apply="org.zkoss.bind.BindComposer"
+	id="wdn" border="normal" mode="modal" action="show: slideIn" class="tcx-modal pop-up-width"
+	contentStyle="overflow:auto;" closable="true" title="${arg.save}"
+	onClose="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')"
+	whatever="@load(false,after='saveCapDonViHanhChinh') @converter('vn.toancauxanh.service.DetachConverter')"
+	viewModel="@id('vm') @init(arg.model)" validationMessages="@id('vmsgs')">
+	
+		<zscript><![CDATA[
+			vmArgs = arg.get("vmArgs");
+			strSave = arg.get("save");
+		]]></zscript> 
+		
+	<div class="row box-body">
+		<div class="col-md-12">
+			<div class="form-group">
+				<x:label>Mã cấp đơn vị hành chính<n:small class="required"> *</n:small></x:label>
+				<textbox class="form-control" maxlength="255"
+					value="@load(vm.ma) @save(vm.ma, before='saveCapDonViHanhChinh') 
+					@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"/>
+				<label class="error" value="@load(vmsgs[self.previousSibling])" />
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="form-group">
+				<x:label>Tên cấp đơn vị hành chính<n:small class="required"> *</n:small></x:label>
+				<textbox class="form-control" maxlength="255"
+					value="@load(vm.ten) @save(vm.ten, before='saveCapDonViHanhChinh') 
+					@validator('vn.toancauxanh.vm.BaseValid', constraint='no empty')"/>
+				<label class="error" value="@load(vmsgs[self.previousSibling])" />
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="form-group">
+				<x:label>Mô tả</x:label>
+				<textbox class="form-control" maxlength="255" rows="3"
+					value="@load(vm.moTa) @save(vm.moTa, before='saveCapDonViHanhChinh')"/>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row box-footer">
+		<x:button class="btn btn-success" style="margin-right: 10px;" zk:if="${(vm.noId() and entry.quyen.capdonvihanhchinh_them) or (!vm.noId() and entry.quyen.capdonvihanhchinh_sua)}"
+			onClick="@command('saveCapDonViHanhChinh', list=vmArgs, attr='targetQuery',wdn=wdn)">
+			<n:i class="fa fa-save"></n:i>Lưu 
+		</x:button>
+		<x:button class="btn btn-default" 
+			onClick="@command('invokeGG', notify=vmArgs, detach=wdn, attr='targetQuery')">
+			<n:i ></n:i>Hủy
+		</x:button>		
+	</div>
+</window>
+</idspace>

@@ -1,0 +1,46 @@
+<z:idspace xmlns:n="native" xmlns:zk="zk" xmlns:z="zul" xmlns:x="xhtml"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.NhanVienService')">
+	<zscript><![CDATA[
+		self.page.title= "Quản lý người dùng";
+	]]></zscript>
+	<div class="container-fluid box-content">
+			<n:h4>Quản lý người dùng</n:h4>
+			<div class="box-form">
+				<div class="title-form">
+					<n:h5>Phân công nhiệm vụ của ban xúc tiến và hỗ trợ đầu tư</n:h5>
+				</div>
+					<div class="box-form-content">
+						<div class="row">
+							<div class="col-md-4">
+								<label>Email address:</label>
+								<textbox class="form-control" value=""></textbox>
+							</div>
+							<div class="col-md-4">
+								<label>Email address:</label>
+								<textbox class="form-control" value=""></textbox>
+							</div>
+							<div class="col-md-4">
+								<label>Email address:</label>
+								<textbox class="form-control" value=""></textbox>
+							</div>
+							<div class="col-md-4">
+								<label>Email address:</label>
+								<textbox class="form-control" value=""></textbox>
+							</div>
+							<div class="col-md-4">
+								<label>Email address:</label>
+								<textbox class="form-control" value=""></textbox>
+							</div>
+							<div class="col-md-4">
+								<label>Email address:</label>
+								<textbox class="form-control" value=""></textbox>
+							</div>
+							<div class="col-md-12 button-fl">
+								<button type="button" class="btn">Tìm kiếm lại</button>
+								<button type="button" class="btn btn-primary">Tìm kiếm</button>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+</z:idspace>

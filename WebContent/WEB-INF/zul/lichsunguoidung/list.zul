@@ -1,0 +1,112 @@
+<z:idspace xmlns:n="native" xmlns:zk="zk" xmlns:z="zul" xmlns:x="xhtml"
+	viewModel="@id('vm') @init('vn.toancauxanh.cms.service.LichSuNguoiDungService')"
+	form="@id('fx') @load(vm) @save(vm, before={'cmd'})"
+	validationMessages="@id('vmsgs')">
+	<zscript><![CDATA[
+		self.page.title= "Quản lý lịch sử người dùng";
+	]]></zscript>
+	<n:section class="main-container">
+		<div class="center">
+			<div class="bar-top-content">
+				<n:h2 class="title-page-main">QUẢN LÝ LỊCH SỬ NGƯỜI DÙNG</n:h2>
+			</div>
+			<div class="box-content-full">
+				<n:section class="box-result">
+					<div class="box-form-search">
+						<n:form class="form-src padding-form-bt">
+							<div class="row">
+								<div class="col-sm-3">
+								 	<n:span class="title-issue title-issue-detail">
+										Tên người dùng
+									</n:span>
+									<combobox model="@load(entry.nhanVienService.listNguoiDungsAndNull)" width="100%"
+										readonly="true" class="hv-cbb" 
+										value="@load(vm.selectedNhanVien eq null ? 'Tất cả' : vm.selectedNhanVien.hoVaTen)"
+										selectedItem="@bind(vm.selectedNhanVien)"
+										placeholder="Tất cả">
+										<template name="model">
+											<comboitem label="@load(empty each ? 'Tất cả' : each.hoVaTen)" />
+										</template>
+									</combobox> 
+								</div>
+								<div class="col-sm-2">
+								 	<n:span class="title-issue title-issue-detail">
+										Loại hành động
+									</n:span>
+									<combobox model="@load(vm.listLoaiHanhDongsAndNull)" width="100%"
+										readonly="true" class="hv-cbb" 
+										value="@load(vm.selectHanhDong eq null ? 'Tất cả' : vm.selectHanhDong.text)"
+										selectedItem="@bind(vm.selectHanhDong)"
+										placeholder="Tất cả">
+										<template name="model">
+											<comboitem label="@load(empty each ? 'Tất cả' : each.text)" />
+										</template>
+									</combobox> 
+								</div>
+								<div class="col-sm-2">
+									<n:span class="title-issue title-issue-detail">
+										Từ ngày
+									</n:span>
+            						<datebox format="dd/MM/yyyy" class="hv-db"
+									 value="@bind(vm.tuNgay)" width="100%" placeholder="Chọn ngày"/>
+               					</div>
+               					<div class="col-sm-2">
+									<n:span class="title-issue title-issue-detail">
+										Đến ngày
+									</n:span>
+            						<datebox format="dd/MM/yyyy" class="hv-db"
+									 value="@bind(vm.denNgay)" width="100%" placeholder="Chọn ngày"/>
+               					</div>
+            					<div class="col-sm-3 search-timkiem">
+               						<x:button class="btn-form-search btn-page" type="button" onClick="@command('cmd', notify=vm, attr='*')">
+											<n:i class="icon-search"></n:i> Tìm kiếm
+									</x:button>
+               					</div>	 	
+							</div>
+						</n:form>
+					</div>
+					<div class="clearfix"></div>
+				</n:section>
+				<n:section class="box-result">
+		        	<div class="box-list-report">
+		          		<div class="box-report-top range-menu">
+		          			<n:p class="title-issue title-list-report">
+		          				DANH SÁCH LỊCH SỬ NGƯỜI DÙNG
+		          			</n:p>
+		          			<div class="box-button-list">
+		          				<x:a class="btn-add-new btn-page btn-flexbox width-100 margin-10-pu" zk:onClick="@command('xuatExcel', 
+		    							query=vm.targetQuery, title='Tất cả lịch sử người dùng')" href="javascript:;">
+									<n:i class="icon-export"></n:i>&#160;&#160;Xuất Excel
+								</x:a>
+		          			</div>
+		          		</div>
+		          		 <div class="wrappre-tb">
+                			<div class="wp-scrool">
+                				<grid model="@load(vm.page(vm.targetQuery).fetch())" width="100%" id="grid"
+									emptyMessage="Danh sách không có lịch sử nào" class="table-report">
+									<columns>
+										<column label="STT" hflex="min" style="text-align: center;"/>
+										<column label="Họ và tên" width="15%"/>
+										<column label="Loại hành động" width="10%" style="text-align: center;"/>
+										<column label="Ngày giờ" width="12%" style="text-align: center;"/>	
+									</columns>
+									<template name="model">
+										<row apply="org.zkoss.bind.BindComposer" viewModel="@id('item') @init(each)">
+											<label value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)" style="text-align:center;display:block"/>
+											<label value="@load(each.nhanVien.hoVaTen)" style="display:block"/>
+											<label value="@load(each.loaiHanhDong.text)" style="text-align:center;display:block"/>
+											<label value="@load(each.ngayGio) @converter('formatedDate', format='hh:mm:ss dd/MM/yyyy')" style="text-align:center;display:block"/>
+										</row>
+									</template>
+								</grid>
+								<paging pageSize="@load(vm.arg.pagesize)" totalSize="@load(vm.targetQuery.fetchCount())"
+									visible="@load(vm.targetQuery.fetchCount() > vm.arg.pagesize ? true : false)"
+									activePage="@bind(vm.arg.page)" onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+                			</div>
+                		</div>
+		         	 </div>
+		         </n:section>
+			</div>
+		</div>
+	</n:section>
+</z:idspace>

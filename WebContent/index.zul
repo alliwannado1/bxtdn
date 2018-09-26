@@ -1,0 +1,10 @@
+<zk>
+	<zscript><![CDATA[     
+		entry = new vn.toancauxanh.service.BaseObject().core();
+		vn.toancauxanh.model.NhanVien nhanVien = entry.getNhanVien();
+		if(nhanVien.getTatCaQuyens().contains(entry.core().NGUOIDUNGLIST)){
+			desktop.setCurrentDirectory("/WEB-INF/zul");
+			Executions.forward("/WEB-INF/zul/home.zhtml?resource=nguoidung&action=lietke&file=/WEB-INF/zul/nguoidung/list.zul");
+		}
+	]]></zscript>
+</zk>

@@ -1,0 +1,60 @@
+<z:idspace xmlns:n="native" xmlns:zk="zk" xmlns:z="zul" xmlns:x="xhtml"  xmlns:w="client"
+	viewModel="@id('vm') @init('vn.toancauxanh.cms.service.SettingService')">
+	<zscript><![CDATA[
+		self.page.title= "Trợ giúp";
+		vaitro = entry.getNhanVien().firstAlias;
+	]]></zscript>
+	<n:section class="main-container">
+		<div class="center">
+			<div class="bar-top-content">
+				<n:h2 class="title-page-main">Trợ giúp</n:h2>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="box-content-full">
+						<n:section class="box-result box-cv-processed">
+							<div class="box-form-search">
+								<div class="row row-vc-process row-setting">
+									<div class="col-sm-6">
+										<n:span class="title-issue title-issue-detail">Đơn vị hỗ trợ:</n:span>
+									</div>
+									<div  class="col-sm-6">
+										<label value="@load(vm.setting.donViHoTro)"/>
+									</div>
+								</div>
+								<div class="row row-vc-process row-setting">
+									<div class="col-sm-6">
+										<n:span class="title-issue title-issue-detail">Số điện thoại hỗ trợ:</n:span>
+									</div>
+									<div class="col-sm-6">
+										<label value="@load(vm.setting.soDienThoaiHoTro)"/>
+									</div>
+								</div>	
+								<div class="row-vc-process row-setting">
+									<div class="row">	
+										<div class="col-sm-6">
+											<n:span class="title-ip">Tài liệu HDSD:</n:span>
+										</div>
+										<div class="col-sm-6">
+											<div class="row">	
+												<div class="col-sm-12">
+													<div visible="@load(!empty vm.setting.tenFileHDSD)">
+														<a zk:onClick="@command(vm.setting.downloadFile())">
+															<image if="${not empty vm.setting.tenFileHDSD}" content="@load(vm.setting.imgQuanTriVien.imageContent)" style="width: 20px;"/>
+															<label value="@load(vm.setting.tenFileHDSD)"/>
+														</a>							
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</n:section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</n:section>
+</z:idspace>

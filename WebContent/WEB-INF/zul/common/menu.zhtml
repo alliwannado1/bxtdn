@@ -1,0 +1,34 @@
+<zk xmlns:n="native">
+	<n:ul>
+		<n:li>
+			<a href="#" class="active">
+				<i class="fas fa-folder"></i>
+				<span>Quản lý giao việc</span>
+			</a>
+		</n:li>
+		<n:li>
+			<a href="#">
+				<i class="fas fa-folder"></i>
+				<span>Quản lý đoàn vào</span>
+			</a>
+		</n:li>
+		<n:li>
+			<a href="#">
+				<i class="fas fa-folder"></i>
+				<span>Quản lý dự án</span>
+			</a>
+		</n:li>
+		<n:li>
+			<a href="#">
+				<i class="fas fa-folder"></i>
+				<span>Báo cáo thống kê</span>
+			</a>
+		</n:li>
+		<n:li>
+			<a href="#">
+				<i class="fas fa-folder"></i>
+				<span>Quản trị hệ thống</span>
+			</a>
+		</n:li>
+	</n:ul>
+</zk>

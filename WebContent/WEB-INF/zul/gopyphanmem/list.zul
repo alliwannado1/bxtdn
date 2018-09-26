@@ -1,0 +1,79 @@
+<?page title="Quản lý thông báo" contentType="text/html;charset=UTF-8"?>
+<div xmlns:zk="zk" xmlns:n="native" xmlns:x="xhtml"
+	viewModel="@id('vm') @init('vn.toancauxanh.service.GopYPhanMemService')">
+	<zscript><![CDATA[
+		page.title= "Danh sách góp ý phần mềm";
+	]]></zscript>
+	
+	<div zclass="row">
+		<div zclass="col-lg-12">
+			<n:h3 class="page-header">
+				Danh sách góp ý phần mềm
+				<div zclass="wd-action-bar">
+					<x:button zk:if="${vm.quyen._them}"
+						class="btn green"
+						onClick="@command('redirectPage', zul='gopyphanmem/add.zul',vmArgs=vm,vm=null)">
+						<n:i class="fa fa-plus"></n:i>
+						Thêm mới
+					</x:button>
+				</div>
+			</n:h3>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<div class="wd-search-form">
+		<div zclass="row">
+			<div zclass="form-group">
+				<div zclass="col-md-2">
+					<label zclass="control-label" value="Từ khoá" />
+					<textbox zclass="form-control" maxlength="255"
+						value="@bind(vm.arg.tukhoa)" placeholder="Nhập từ khoá"
+						width="100%" onOK='vm.arg.put("trang", 0); vm.cmd("", vm, "targetQuery");'/>
+				</div>
+				<div zclass="col-md-2">
+					<div zclass="control-label">&#160;</div>
+					<x:button class="btn yellow"
+						zk:onClick='vm.arg.put("trang", 0); vm.cmd("", vm, "targetQuery");'>
+						<n:i class="fa fa-search"></n:i>
+						Tìm kiếm
+					</x:button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<grid model="@load(vm.page(vm.targetQuery).fetch())" width="100%"
+		emptyMessage="Không có mục nào trong danh sách">
+		<columns>
+			<column label="STT" width="5%" />
+			<column label="Họ và tên"  />
+			<column label="Số điện thoại" width="20%" />
+			<column label="Email" width="25%" />
+			<column label="Thao tác" hflex="min" />
+
+		</columns>
+		<template name="model">
+			<row 
+				viewModel="@id('item') @init(each)">
+				<label
+					value="@bind(forEachStatus.index + 1 + vm.arg.page * vm.arg.pagesize)"
+					style="text-align:center;display:block" />
+				<a label="@load(each.hoTen)" zk:if="${item.getQuyen(vm.arg.resource)._sua}"
+					onClick="@command('redirectAction', zul='gopyphanmem/view.zul',vmArgs=vm,vm=item,readOnly=false)" />
+				<label value="@load(each.soDienThoai)" />
+				<label value="@load(each.email)" />
+				<div zclass="thaotac">
+					<x:button label="Xem" class="btn btn-primary btn-xs" zk:if="${item.getQuyen(vm.arg.resource)._xem}"
+						onClick="@command('redirectAction', zul='gopyphanmem/view.zul',vmArgs=vm,vm=item,readOnly=true)">
+						<n:i class="fa fa-eye"></n:i>
+						Xem
+					</x:button>
+				</div>
+			</row>
+		</template>
+	</grid>
+
+	<paging pageSize="@load(vm.arg.pagesize)"
+		totalSize="@load(vm.targetQuery.fetchCount())"
+		activePage="@bind(vm.arg.page)"
+		onPaging="@command('cmd', notify=vm, atr='targetQuery')" />
+</div>
